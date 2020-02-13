@@ -33,7 +33,7 @@ router.post('/answer/:id', async function(req, res) {
     answer_id = req.params.id;
     survey_id = req.body.survey_id;
     dir_path = '/' + survey_id;
-    path = dir_path + '/answer' + answer_id + '.json';
+    path = dir_path + '/answer_' + answer_id + '.json';
     //处理相同answer id已存在的情况
     //存在则删除映射关系，实际文件不会被删除，可通过hash值查找
     try {
@@ -44,7 +44,7 @@ router.post('/answer/:id', async function(req, res) {
     }
     //处理全新answer
     try {
-        await ipfs.files.write(path, Buffer.from(JSON.stringify(req.body.answer)), { create: true });
+        await ipfs.files.write(path, Buffer.from(JSON.stringify(req.body.data)), { create: true });
     } catch(e) {
         return res.status(500).send('faild to due with survey ' + survey_id);
     }
@@ -54,7 +54,7 @@ router.post('/answer/:id', async function(req, res) {
 
     var { cid } = await ipfs.files.stat(path);
     var answer_hash = cid.toString();
-    await res.json({ "survey": survey_hash, "answer": answer_hash});
+    await res.json({ survey_hash: survey_hash, answer_hash: answer_hash});
 });
 
 module.exports = router;
