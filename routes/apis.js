@@ -19,7 +19,7 @@ router.post('/survey/:id', async function(req, res) {
     //处理全新survey
     try {
         await ipfs.files.mkdir(dir_path);
-        await ipfs.files.write(path, Buffer.from(JSON.stringify(req.body)), { create: true })
+        await ipfs.files.write(path, Buffer.from(req.body.data), { create: true })
     } catch(e) {
         conlose.log(e)
         return res.status(500).send('faild to due with survey ' + survey_id);
@@ -44,7 +44,7 @@ router.post('/answer/:id', async function(req, res) {
     }
     //处理全新answer
     try {
-        await ipfs.files.write(path, Buffer.from(JSON.stringify(req.body.data)), { create: true });
+        await ipfs.files.write(path, Buffer.from(req.body.data), { create: true });
     } catch(e) {
         return res.status(500).send('faild to due with survey ' + survey_id);
     }
