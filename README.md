@@ -8,7 +8,7 @@
 ### api说明
 文件路径 routes/apis.js
 
-post /survey/:id
+#### post /survey/:id
 
 功能：传入问卷id和数据，建立对应id的文件夹和问卷文件的映射关系。若有相同问卷id，会完全清除旧数据的映射关系；
 
@@ -26,7 +26,7 @@ post /survey/:id
 }
 ```
 
-post /answer/:id
+#### post /answer/:id
 
 功能：传入用户id和数据，在相应问卷id的文件夹下建立答卷文件的映射关系。若有相同用户id，会清除旧问卷（旧用户）的映射关系
 

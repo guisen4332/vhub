@@ -46,6 +46,7 @@ router.post('/answer/:id', async function(req, res) {
     try {
         await ipfs.files.write(path, Buffer.from(req.body.data), { create: true });
     } catch(e) {
+        console.log(e)
         return res.status(500).send('faild to due with survey ' + survey_id);
     }
 
